@@ -106,7 +106,7 @@ uint32_t SHA3_512(const uint8_t *src, const uint slen, uint8_t *&dest)
 }
 
 // H1 : {0, 1}* -> G
-uint32_t H1(const uint8_t* src, const int slen, element_t dest)
+uint32_t H1(const uint8_t* src, const int slen, element_t & dest)
 {
     uint8_t * tmp;
     int dlen = SHA3_256(src, slen, tmp);
@@ -117,7 +117,7 @@ uint32_t H1(const uint8_t* src, const int slen, element_t dest)
 }
 
 // H2 : GT -> Z_p^*
-uint32_t H2(element_t _src, const int slen, element_t dest)
+uint32_t H2(element_t _src, const int slen, element_t & dest)
 {
     uint8_t * src = new uint8_t[slen];
     element_to_bytes(src, _src);
@@ -164,7 +164,7 @@ uint32_t H3_prime(element_t src1, const int slen1, element_t src2, const int sle
 }
 
 // H4 : {0,1}^* -> Z_p^*
-uint32_t H4(const uint8_t* src, const int slen, element_t dest)
+uint32_t H4(const uint8_t* src, const int slen, element_t & dest)
 {
     uint8_t * tmp;
     int dlen = SHA3_256(src, slen, tmp);
