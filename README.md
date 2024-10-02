@@ -15,4 +15,4 @@ make
 ```
 
 ## Run the codes
-./MIBE-AET ../params/e256.param 
+./bin/MIBE-AET ../params/e256.param 
