@@ -17,10 +17,8 @@ make
 ## Running the Code
 - `-p`: PBC pairing parameter file
 - `-n`: the number of iteration
-- `-s`: mode (ibeet, lgz22, llh24, all)
 
 Example usage:
 ```
-./bin/frontend -p ../params/e256.param -n 10 -s llh24
-./bin/frontend -p ../params/e256.param -n 10 -s eze20
+./bin/frontend -p params/e256.param -n 10 
 ```
