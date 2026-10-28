@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+#include <cmath>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
@@ -132,4 +134,21 @@ inline void H4(const uint8_t *src, size_t slen, element_t out)
 inline double avg(const std::vector<double> &v)
 {
     return std::accumulate(v.begin(), v.end(), 0.0) / v.size();
+}
+
+inline double median(std::vector<double> v)
+{
+    if (v.empty()) return 0.0;
+    std::sort(v.begin(), v.end());
+    const size_t m = v.size() / 2;
+    return (v.size() % 2) ? v[m] : 0.5 * (v[m - 1] + v[m]);
+}
+
+inline double stddev(const std::vector<double> &v)
+{
+    if (v.size() < 2) return 0.0;
+    const double m = avg(v);
+    double acc = 0.0;
+    for (double x : v) acc += (x - m) * (x - m);
+    return std::sqrt(acc / (v.size() - 1));
 }

@@ -78,13 +78,10 @@ void IBEAETScheme::encrypt(const std::string &id,
     H4(M, MESSAGE_SPACE, m);
 
     // C3 = m * H2(e(hID, mpk1)^r1)
-    element_t hID_r1;
-    element_init_G1(hID_r1, pairing);
-    element_pow_zn(hID_r1, hID, r1);
-
     element_t e1;
     element_init_GT(e1, pairing);
-    element_pairing(e1, hID_r1, mpk1); // e1 = e(hID, mpk1)^r1
+    element_pairing(e1, hID, mpk1);
+    element_pow_zn(e1, e1, r1); // e1 = e(hID, mpk1)^r1
 
     element_t h2val;
     element_init_Zr(h2val, pairing);
@@ -94,13 +91,10 @@ void IBEAETScheme::encrypt(const std::string &id,
     element_mul(C.C3, m, h2val); // C3 = m * H2(e(hID, mpk1)^r1)
 
     // C4 = (M || r1) XOR H3'(e(hID, mpk2)^r2 || m)
-    element_t hID_r2;
-    element_init_G1(hID_r2, pairing);
-    element_pow_zn(hID_r2, hID, r2);
-
     element_t e2;
     element_init_GT(e2, pairing);
-    element_pairing(e2, hID_r2, mpk2); // e2 = e(hID, mpk2)^r2
+    element_pairing(e2, hID, mpk2);
+    element_pow_zn(e2, e2, r2); // e2 = e(hID, mpk2)^r2
 
     uint8_t h3buf[n12];
     H3_prime(e2, lenGT, m, lenZr, h3buf);
@@ -115,7 +109,6 @@ void IBEAETScheme::encrypt(const std::string &id,
     element_clear(hID);
     element_clear(r1);     element_clear(r2);
     element_clear(m);
-    element_clear(hID_r1); element_clear(hID_r2);
     element_clear(e1);     element_clear(e2);
     element_clear(h2val);
 }
